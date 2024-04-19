@@ -1,0 +1,62 @@
+
+clc
+clear
+
+format short
+
+syms x c
+
+
+% 假设 x 是您的输入数组，n 是数组的长度，i 是您要排除的索引
+
+x0=1.25;
+c0=1.2;
+a=[1, 1.1, 1.2, 1.3, 1.4];  %xi
+y=[1, 1.23368, 1.55271, 1.99372, 2.61170]; %yi
+
+n = length(a);
+% 创建一个符号数组
+L1= 0;
+l = sym(ones(1, n)); % 使用符号1初始化l
+f=@(c) exp(c^2-1);
+R1= diff(f, c, n)/factorial(n);
+
+for i=1:n
+ for j = 1:n
+    if j ~= i
+        l(i) = l(i) * ( ( x - a(j) )/( a(i)-a(j) ) );
+    end
+ end
+end
+
+
+
+for i=1:n
+    L1=L1+y(i)*l(i);
+
+end
+
+
+L = subs(L1, x, x0);  
+
+for i=1:n
+   R1= R1*(x-a(i));
+end
+
+R = subs(R1, [x, c], [x0, c0]);
+
+disp("L:");
+fprintf('%.6f\n', L); 
+
+
+disp("L1:");
+disp(L1);
+
+
+disp("R:");
+fprintf('%.6f\n', abs(R)); 
+
+disp("R1:");
+disp(R1);
+
+
