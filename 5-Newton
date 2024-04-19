@@ -1,0 +1,84 @@
+
+clc
+clear
+
+
+syms x
+
+x0=1.682;
+a=[1.615, 1.634, 1.702, 1.828];                        
+%xi
+y=[2.41450, 2.46259, 2.65271, 3.03035];    
+%yi
+
+n=length(a);
+
+
+Newton1=zeros(1,n);
+Newton2=zeros(1,n);
+Newton3=zeros(1,n);
+Newton4=zeros(1,n);
+Newton5=zeros(1,n);
+
+if n>1
+%一阶插商
+for i=2:n
+    Newton1(i)= ( y(i)-y(i-1) )/( a(i)-a(i-1) );
+end
+end
+
+
+if n>2
+%二阶
+for i=3:n
+    Newton2(i)= ( Newton1(i)-Newton1(i-1) )/( a(i)-a(i-2) );
+end
+end
+
+
+if n>3
+%三阶
+for i=4:n
+    Newton3(i)= ( Newton2(i)-Newton2(i-1) )/( a(i)-a(i-3) );
+end
+end
+
+
+if n>4
+%四阶
+for i=5:n
+    Newton4(i)= ( Newton3(i)-Newton3(i-1) )/( a(i)-a(i-4) );
+end
+end
+
+
+if n>5
+%五阶
+for i=6:n
+    Newton5(i)= ( Newton4(i)-Newton4(i-1) )/( a(i)-a(i-5) );
+end
+end
+
+
+%N1=y(1)+Newton1(2)*(x-a(1))+Newton2(3)*(x-a(1))*(x-a(2))+Newton3(4)*(x-a(1))*(x-a(2))*(x-a(3))+Newton4(5)*(x-a(1))*(x-a(2))*(x-a(3))*(x-a(4))+Newton5(6)*(x-a(1))*(x-a(2))*(x-a(3))*(x-a(4))*(x-a(5));
+N1=y(1)+Newton1(2)*(x-a(1))+Newton2(3)*(x-a(1))*(x-a(2))+Newton3(4)*(x-a(1))*(x-a(2))*(x-a(3));
+N=subs(N1,x,x0);
+
+
+% 显示表头
+fprintf('%12s %12s %12s %12s %12s %12s %12s\n', 'xi','yi','Newton1', 'Newton2', 'Newton3', 'Newton4','Newton5');
+
+% 遍历数组并格式化输出
+for i = 1:n
+    fprintf('%12.6f %12.6f %12.6f %12.6f %12.6f %12.6f %12.6f\n', a(i), y(i), Newton1(i), Newton2(i), Newton3(i), Newton4(i), Newton5(i));
+end
+
+
+disp("N:");
+fprintf('%.6f\n', N); 
+
+disp("N1:");
+disp(vpa(N1, 6));
+
+
+
