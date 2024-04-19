@@ -72,3 +72,50 @@ fprintf('%.8f\n', Her);
 
 disp("H1");
 disp(vpa(H1, 6));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+clc;
+clear;
+syms x a b;
+
+% 定义函数 H
+H = -x^2 + 2*x + 1 + (a*x + b)*x*(x-1)*(x-2);
+
+% 计算 H 的导数
+H_prime = diff(H, x);
+
+% 设置方程 H'(1) = 0 和 H'(2) = -1
+eq1 = subs(H_prime, x, 1) == 0;
+eq2 = subs(H_prime, x, 2) == -1;
+
+% 解方程
+sol = solve([eq1, eq2], [a, b]);
+
+% 显示解
+a_solution = sol.a;
+b_solution = sol.b;
+
+disp('The solution for a and b are:');
+disp(['a = ', char(a_solution)]);
+disp(['b = ', char(b_solution)]);
+
