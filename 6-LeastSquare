@@ -1,0 +1,46 @@
+format short
+
+t=[19,25,31,38,44];
+x=t.^2;
+y=[19,32.3,49,73.3,97.8];
+
+n=length(x);
+
+Sx=0;
+Sxx=0;
+Sxxx=0;
+Sxxxx=0;
+Sy=0;
+Sxy=0;
+Sxxy=0;
+
+for i=1:n
+    Sx=Sx+x(i);
+    Sy=Sy+y(i);
+    Sxx=Sxx+x(i)*x(i);
+    Sxy=Sxy+x(i)*y(i);
+    Sxxx=Sxxx+x(i)*x(i)*x(i);
+    Sxxxx=Sxxxx+x(i)*x(i)*x(i)*x(i);
+    Sxxy=Sxxy+x(i)*x(i)*y(i);
+
+
+end
+
+A=[n   Sx
+   Sx  Sxx ];
+
+%A=[n    Sx    Sxx
+%   Sx   Sxx   Sxxx
+%   Sxx  Sxxx  Sxxxx];
+
+b=[Sy
+   Sxy];
+
+%b=[Sy
+%   Sxy
+%   Sxxy];
+
+a=A\b;
+
+disp("a:");
+disp(a);
