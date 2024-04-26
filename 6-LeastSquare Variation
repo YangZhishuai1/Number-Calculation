@@ -1,0 +1,63 @@
+format long
+
+p=[2,3,5,6,7,9,10,11,12,14,16,17,19,20];
+q=[106.42, 108.26, 109.58, 109.50, 109.86, 110.00, 109.93, 110.59, 110.60, 110.72, 110.90, 110.76, 111.10, 111.30];
+
+n=length(p);
+
+x=zeros(1,n);
+y=zeros(1,n);
+
+for i=1:n
+    x(i)=1/p(i);
+    y(i)=1/q(i);
+
+end
+
+Sx=0;
+Sxx=0;
+Sxxx=0;
+Sxxxx=0;
+Sy=0;
+Sxy=0;
+Sxxy=0;
+
+for i=1:n
+    Sx=Sx+x(i);
+    Sy=Sy+y(i);
+    Sxx=Sxx+x(i)*x(i);
+    Sxy=Sxy+x(i)*y(i);
+    Sxxx=Sxxx+x(i)*x(i)*x(i);
+    Sxxxx=Sxxxx+x(i)*x(i)*x(i)*x(i);
+    Sxxy=Sxxy+x(i)*x(i)*y(i);
+
+
+end
+
+A=[n   Sx
+   Sx  Sxx ];
+
+%A=[n    Sx    Sxx
+%   Sx   Sxx   Sxxx
+%   Sxx  Sxxx  Sxxxx];
+
+b=[Sy
+   Sxy];
+
+%b=[Sy
+%   Sxy
+%   Sxxy];
+
+a=A\b;
+
+
+disp("a:");
+disp(a);
+
+c=2:0.01:20;
+
+% 计算对应的y值
+d = c ./ ( a(2)+a(1).*c );
+
+plot(p,q,'ro',c,d,'g')
+legend('数据点','拟合','Location','Northwest')
