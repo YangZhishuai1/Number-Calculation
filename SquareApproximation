@@ -1,0 +1,51 @@
+c=0;
+d=1;
+
+syms x
+
+f=sqrt(x);
+fi=[1 x];
+n=length(fi);
+m=factorial(n);
+
+fifi=zeros(1,m);
+A=zeros(n);
+b=zeros(n,1);
+
+
+for i=1:n
+
+  % 求定积分
+  b(i) = int(f*fi(i), x, c, d);
+
+end
+
+
+fifi(1)=int(fi(1)*fi(1), x, c, d);
+fifi(2)=int(fi(1)*fi(2), x, c, d);
+fifi(3)=int(fi(2)*fi(2), x, c, d);
+
+%fifi(3)=int(fi(1)*fi(3), x, c, d);
+%fifi(4)=int(fi(2)*fi(2), x, c, d);
+%fifi(5)=int(fi(2)*fi(3), x, c, d);
+%fifi(6)=int(fi(3)*fi(3), x, c, d);
+
+A=[fifi(1) fifi(2)
+   fifi(2) fifi(3)];
+
+%A=[fifi(1) fifi(2) fifi(3)
+%   fifi(2) fifi(4) fifi(5)
+%   fifi(3) fifi(5) fifi(6)];
+
+a=A\b;
+
+
+disp("a:");
+disp(a);
+
+disp("A:");
+disp(A);
+
+disp("b:");
+disp(b);
+
