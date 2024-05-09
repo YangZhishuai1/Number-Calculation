@@ -1,0 +1,22 @@
+
+%逐次分半法
+
+clc
+clear
+
+syms x
+
+a=0;
+b=pi/2;
+h=b-a;
+
+f(x)=sqrt( 1+3*( sin(x) )^2 );
+
+%梯形公式
+T1=(h/2) * ( f(a)+f(b) );
+T2=1/2 * T1 + h/2 * f(a+h/2);
+T4=1/2 * T2 + h/4 * ( f(a+h/4)+f(a+3*h/4) );
+
+fprintf('%.8f\n', T1);
+fprintf('%.8f\n', T2);
+fprintf('%.8f\n', T4);
