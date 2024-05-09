@@ -1,0 +1,35 @@
+
+clc
+clear
+
+x=[0, 0.5, 1];
+y=exp(-x);
+
+h2=x(3)-x(1);
+h3=x(2)-x(1);
+
+%两点公式
+integration2=(h2/2) * (y(1)+y(3));
+
+%两点公式误差
+error2=-(h2^3/12) * exp(-x(1));
+
+%三点公式
+integration3=(h3/3) * (y(1)+4*y(2)+y(3));
+
+%三点公式误差
+error3=-(h3^5/90) * exp(-x(1));
+
+disp("integration2:");
+disp(integration2);
+
+disp("integration3:");
+disp(integration3);
+
+disp("error2:");
+disp(abs(error2));
+
+disp("error3:");
+disp(abs(error3));
+
+
