@@ -1,0 +1,43 @@
+
+clc
+clear
+
+format long
+
+x=[0.4,0.5,0.6];
+y=1./( (1+x).^2 );
+
+n=length(x);
+
+diff2=zeros(1,2);
+diff3=zeros(1,3);
+
+h=x(2)-x(1);
+
+%两点公式
+diff2(1)=(1/h) * (y(2)-y(1));
+diff2(2)=(1/h) * (y(2)-y(1));
+
+%两点公式误差
+error2=(h/2) * 6/(x(1) + 1)^4 ;
+
+%三点公式
+diff3(1)=0.5 * (1/h) * (-3*y(1)+4*y(2)-y(3));
+diff3(2)=0.5 * (1/h) * (-y(1)+y(3));
+diff3(3)=0.5 * (1/h) * (y(1)-4*y(2)+3*y(3));
+
+%三点公式误差
+error3=(-h^2/6) * (-24/(x(1) + 1)^5) ;
+
+disp("diff2:");
+disp(diff2);
+
+disp("diff3:");
+disp(diff3);
+
+disp("error2:");
+disp(abs(error2));
+
+disp("error3:");
+disp(abs(error3));
+
