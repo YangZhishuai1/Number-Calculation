@@ -1,0 +1,61 @@
+
+clc
+clear
+
+format long
+
+syms t
+
+x=[-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1];
+y=exp(-x.^2);
+
+n=length(x);
+h=x(2)-x(1);
+
+integration2=(h/2) * (y(1)+y(n));
+integration3=(h/3) * (y(1)+y(n));
+
+f(t)=exp(-t^2);
+
+d2fdt2(t)=diff(f(t), t, 2);
+d4fdt4(t)=diff(f(t), t, 4);
+
+
+for i=2:n-1
+
+    integration2=integration2+h * y(i);
+
+end
+
+for i=2:(n-1)/2
+    %从3开始
+
+    integration3=integration3+(2*h/3) * y(2*i-1);
+
+end
+
+for i=1:(n-1)/2
+    %从2开始
+
+    integration3=integration3+(4*h/3) * y(2*i);
+
+end
+
+error2=(-h^2/12) * (x(n)-x(1)) * d2fdt2(1);
+error3=(-h^4/180) * (x(n)-x(1)) * d4fdt4(x(n));
+
+
+disp("integration2:");
+disp(integration2);
+
+disp("integration3:");
+disp(integration3);
+
+disp("error2:");
+fprintf('%.15f\n', abs(error2));
+
+disp("error3:");
+fprintf('%.15f\n', abs(error3));
+
+
+
