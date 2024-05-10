@@ -1,0 +1,40 @@
+
+%割线法
+
+clc
+clear
+
+syms t
+
+%迭代次数
+n=10000;
+%误差
+tolerance = 1*10^(-5);
+
+x=zeros(1,n);
+x(1)=0.5;
+x(2)=0.1;
+
+f(t)=t-log(t)-2;
+dydx(t)=diff(f(t), t, 1);
+
+for i=2:n
+
+    x(i+1)=x(i) - f( x(i) )*( x(i)-x(i-1) )/( f( x(i) )-f( x(i-1) ) );
+
+    if abs( x(i+1)-x(i) )<tolerance
+        break;
+    end
+
+end
+
+disp("x:");
+
+% 找到非零元素的索引
+non_zero_indices = find(x);
+
+% 仅显示非零元素部分
+non_zero_vec = x(non_zero_indices);
+
+% 显示非零元素
+disp(non_zero_vec);
