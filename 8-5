@@ -1,0 +1,36 @@
+clc
+clear
+
+syms t
+
+%迭代次数
+n=10000;
+%误差
+tolerance = 1*10^(-6);
+
+f(t)=t^2 + sin(10*t) - 1;
+dydx(t)=diff(f(t), t, 1);
+
+
+x0_values = [100, 140, 30, 160, 190, 200, 120, 180, 110, 170];
+
+for x0 = x0_values
+    result = newton_method(x0, f, dydx, n, tolerance);
+    disp(['x0 = ', num2str(x0), ': ', num2str(result)]);
+end
+
+function x = newton_method(x0, f, dydx, n, tolerance)
+    x=zeros(1,n);
+    x(1)=x0;
+
+    for i=1:n
+        x(i+1)=x(i) - f( x(i) )/dydx( x(i) );
+
+        if abs( x(i+1)-x(i) )<tolerance
+            break;
+        end
+    end
+
+    x = x(i+1);  % 返回最终结果
+end
+
