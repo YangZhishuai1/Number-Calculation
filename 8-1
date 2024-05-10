@@ -1,0 +1,36 @@
+
+%对分区间法
+
+clc
+clear
+
+% 定义函数
+f = @(x) x - log(x) - 2;
+
+% 设置初始区间和误差限
+a = 2;  % 区间左端点
+b = 4;  % 区间右端点
+tolerance = 0.00001;
+
+% 迭代求解
+while (b - a) / 2 > tolerance
+    c = (a + b) / 2;  % 求中点
+    if f(c) == 0
+        break;  % 找到精确根，提前结束
+    elseif f(a) * f(c) < 0
+        b = c;  % 根在 [a, c] 区间内
+    else
+        a = c;  % 根在 [c, b] 区间内
+    end
+end
+
+% 结果为区间中点
+root = (a + b) / 2;
+
+% 显示结果
+disp("方程的根为");
+fprintf('%.10f\n', root);
+
+
+
+
