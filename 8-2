@@ -1,0 +1,37 @@
+clc
+clear
+
+%迭代次数
+n=10000;
+
+tolerance = 1*10^(-6);
+
+lamda=0.625;
+
+x=zeros(1,n);
+x(1)=80;
+
+for i=1:n
+
+%简单迭代法
+    x(i+1)=exp(-x(i));
+    %x(i+1)=asin( 1-(x(i))^2 ) / 10;
+%加速收敛
+    %x(i+1)=lamda * exp( -x(i) ) + (1-lamda) * x(i);
+
+    if abs( x(i+1)-x(i) )<tolerance
+        break;
+    end
+
+end
+
+disp("x:");
+
+% 找到非零元素的索引
+non_zero_indices = find(x);
+
+% 仅显示非零元素部分
+non_zero_vec = x(non_zero_indices);
+
+% 显示非零元素
+disp(non_zero_vec);
