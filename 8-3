@@ -1,0 +1,53 @@
+
+%Newton法
+
+clc
+clear
+
+syms t
+
+%迭代次数
+n=10000;
+%误差
+tolerance = 1*10^(-6);
+
+x=zeros(1,n);
+
+
+x(1)=-0.9;
+%x(1)=100;  %x1
+%x(1)=140; %x2
+%x(1)=30;  %x3
+%x(1)=160; %x4
+%x(1)=190; %x5
+%x(1)=200; %x6
+%x(1)=120; %x7
+%x(1)=180; %x8
+%x(1)=110; %x9
+%x(1)=170; %x10
+
+
+%f(t)=t^2 + sin(10*t) - 1;
+f(t)=5*t^23-6*t^7+8*t^6-5*t^2;
+dydx(t)=diff(f(t), t, 1);
+
+for i=1:n
+
+    x(i+1)=x(i) - f( x(i) )/dydx( x(i) );
+
+    if abs( x(i+1)-x(i) )<tolerance
+        break;
+    end
+
+end
+
+disp("x:");
+
+% 找到非零元素的索引
+non_zero_indices = find(x);
+
+% 仅显示非零元素部分
+non_zero_vec = x(non_zero_indices);
+
+% 显示非零元素
+disp(non_zero_vec);
