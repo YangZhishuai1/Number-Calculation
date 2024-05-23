@@ -1,0 +1,53 @@
+
+clc
+clear
+
+format short
+
+A = [1  2  3
+     2  3  4
+     3  4  5];
+
+max_iteration=100;
+% 获取列数
+n = size(A, 2);
+
+lamda0=9.6;
+
+x=zeros(n,max_iteration+1);
+y=zeros(n,max_iteration);
+
+x(:,1)=[0
+        0
+        1];
+
+
+for i=1:max_iteration
+
+    y(:,i)=x(:,i)/max(abs(x(:,i)));
+
+    x(:,i+1)=(A-lamda0*eye(n))\y(:,i);
+
+    miu=max(x(:,i+1));
+
+    lamda=lamda0+1/miu;
+
+end
+
+disp('lamda：');
+disp(lamda);
+
+% 获取并显示矩阵的最后一列
+last_column_y = y(:, end);
+% 显示最后一列
+disp("u:");
+disp(last_column_y/norm(last_column_y));
+
+
+
+
+
+
+
+
+
