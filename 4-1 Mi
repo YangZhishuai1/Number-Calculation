@@ -1,0 +1,61 @@
+
+clc
+clear
+
+format short
+
+A = [2  3  2
+     10  3  4
+     3  6  1];
+
+max_iteration=100;
+% 获取列数
+n = size(A, 2);
+tolerance=10^(-6);
+
+v=zeros(n,max_iteration);
+u=zeros(n,max_iteration);
+miu=zeros(1,max_iteration);
+
+v(:,1)=[0
+      0
+      1];
+
+u(:,1)=[0
+      0
+      1];
+
+for i=2:max_iteration
+
+    v(:,i)=A * u(:,i-1);
+    miu(i)=max( v(:,i) );
+    u(:,i)=v(:,i) / miu(i);
+
+      if abs(abs( miu(i) )-abs( miu(i-1) )) < tolerance
+            break;
+      end
+
+end
+
+% 使用逻辑索引找到非零元素
+non_zero_miu = miu(miu ~= 0);
+
+% 显示非零元素
+disp("lamda:");
+disp(non_zero_miu);
+
+% 找到所有非零列的索引
+non_zero_u = any(u(:, 2:end) ~= 0, 1);
+
+% 显示矩阵中非零列的部分
+disp("u:");
+disp(u(:, [false non_zero_u]));
+
+
+
+
+
+
+
+
+
