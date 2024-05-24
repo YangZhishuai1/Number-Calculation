@@ -1,0 +1,77 @@
+
+clc
+clear
+
+
+%向量的范数
+
+% 定义向量 v
+v = [1
+     2
+     3];
+
+% 计算 1-范数
+norm1_v = norm(v, 1);
+
+% 计算 2-范数（默认）
+norm2_v = norm(v);
+
+% 计算 无穷范数
+normInf_v = norm(v, inf);
+
+% 显示结果
+fprintf('1-范数: %.6f\n',norm1_v);
+fprintf('2-范数: %.6f\n',norm2_v);
+fprintf('无穷范数: %.6f\n',normInf_v);
+
+
+
+%矩阵的范数
+
+% 定义一个矩阵 A
+A = [1 2
+     3 4];
+
+% 计算 1-范数
+norm1_A = norm(A, 1);
+
+% 计算 2-范数
+norm2_A = norm(A, 2);
+
+% 计算 无穷范数
+normInf_A = norm(A, inf);
+
+% 计算 Frobenius 范数
+normFro_A = norm(A, 'fro');
+
+% 输出结果
+disp(" ");
+fprintf('1-范数: %.6f\n',norm1_A);
+fprintf('2-范数: %.6f\n',norm2_A);
+fprintf('无穷范数: %.6f\n',normInf_A);
+fprintf('F-范数: %.6f\n',normFro_A);
+
+
+
+% 计算基于 1-范数的条件数
+cond1 = cond(A, 1);
+
+% 计算基于 2-范数的条件数
+cond2 = cond(A);
+
+% 计算基于无穷范数的条件数
+condInf = cond(A, inf);
+
+% 计算基于 Frobenius 范数的条件数
+condFro = cond(A, 'fro');
+
+% 显示条件数
+disp(" ");
+disp(['条件数 (1-范数): ', num2str(cond1)]);
+disp(['条件数 (2-范数): ', num2str(cond2)]);
+disp(['条件数 (无穷范数): ', num2str(condInf)]);
+disp(['条件数 (F-范数): ', num2str(condFro)]);
+
+
+
+
